@@ -1,0 +1,284 @@
+#:import utils kivy.utils
+<OddsLabel>:
+    size_hint: 0.35, 0.07
+
+<CardButton>:
+    source: "icons/cards/empty.png"
+    on_press: app.selector(self.pos, self)
+
+<CommunityCard>:
+    source: "icons/cards/border_white_plus.png"
+    on_release: app.selector(self.pos, self)
+
+<HomeScreen>:
+    FloatLayout:
+        id: float_layout
+        canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#0d0d0d")
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Image:
+            id: red_border
+            source: "icons/cards/border_red.png"
+            size_hint: 0.166, 0.13
+
+        GridLayout:
+            # SETTING BUTTON
+            rows: 1
+            pos_hint: {"top": 0.99, "right": 1}
+            size_hint: 0.15, 0.05
+            ImageButton:
+                source: "icons/misc/setting_icon.png"
+                on_release:
+                    root.manager.transition.direction = 'left'
+                    app.change_screen("settings_screen")
+
+        GridLayout:
+            # HoleCards A B and C
+            cols: 3
+            pos_hint: {"top": 0.98, "left": 1}
+            size_hint: 1, 0.26
+            Label:
+            HoleCards:
+                id: A
+                size_hint: 0.8, 1
+                CardButton:
+                    id: A_1
+                CardButton:
+                    id: A_2
+            Label:
+            HoleCards:
+                id: B
+                size_hint: 0.8, 1
+                CardButton:
+                    id: B_1
+                CardButton:
+                    id: B_2
+            Label:
+            HoleCards:
+                id: C
+                size_hint: 0.8, 1
+                CardButton:
+                    id: C_1
+                CardButton:
+                    id: C_2
+
+        BoxLayout:
+            # Flop, Turn, and River
+            pos_hint: {"top": 0.69, "right": 1}
+            size_hint: 1, 0.13
+            #FLOP CARDS
+            Flop:
+                CommunityCard:
+                    id: flop_1
+            Flop:
+                CommunityCard:
+                    id: flop_2
+            Flop:
+                CommunityCard:
+                    id: flop_3
+            Label:
+                size_hint: 0.35, 1
+            #TURN CARD
+            Turn:
+                CommunityCard:
+                    id: turn
+            Label:
+                size_hint: 0.35, 1
+            #RIVER CARD
+            River:
+                CommunityCard:
+                    id: river
+        FloatLayout:
+            id: under_labels
+            Image:
+                id: blue_border
+                source: "icons/cards/border_blue.png"
+                size_hint: 0.17, 0.1314
+        Image:
+            # FLOP LABEL
+            pos_hint: {"top": 0.62, "left": 1}
+            size_hint: 0.52, 0.09
+            source: "icons/misc/flop.png"
+        Image:
+            # TURN LABEL
+            pos_hint: {"top": 0.62, "right": 1.178}
+            size_hint: 1, 0.09
+            source: "icons/misc/turn.png"
+        Image:
+            # RIVER LABEL
+            pos_hint: {"top": 0.62, "right": 1.412}
+            size_hint: 1, 0.09
+            source: "icons/misc/river.png"
+
+        GridLayout:
+            # HoleCards D E and F
+            cols: 3
+            pos_hint: {"top": 0.55, "left": 1}
+            size_hint: 1, 0.26
+            HoleCards:
+                id: D
+                size_hint: 0.8, 1
+                CardButton:
+                    id: D_1
+                CardButton:
+                    id: D_2
+            Label:
+            HoleCards:
+                id: E
+                size_hint: 0.8, 1
+                CardButton:
+                    id: E_1
+                CardButton:
+                    id: E_2
+            Label:
+            HoleCards:
+                id: F
+                size_hint: 0.8, 1
+                CardButton:
+                    id: F_1
+                CardButton:
+                    id: F_2
+            Label:
+
+        GridLayout:
+            #CLEAR Button
+            cols: 1
+            rows: 1
+            pos_hint: {"top": 0.30, "left": 1}
+            size_hint: 1, .08
+            ImageButton:
+                source: "icons/misc/clear.png"
+                on_press: self.source = "icons/misc/clear_pressed.png"
+                on_release:
+                    self.source = "icons/misc/clear.png"
+                    app.clear_button()
+
+        GridLayout:
+            #Input Buttons
+            cols: 7
+            rows: 3
+            pos_hint: {"top": .23, "left": 1}
+            size_hint: 1, .23
+            spacing: 1
+            ImageButton:
+                source: "icons/numbers/2.png"
+                on_press: self.source = "icons/numbers/pressed/2.png"
+                on_release:
+                    self.source = "icons/numbers/2.png"
+                    app.update_deck(value='2')
+            ImageButton:
+                source: "icons/numbers/3.png"
+                on_press: self.source = "icons/numbers/pressed/3.png"
+                on_release:
+                    self.source = "icons/numbers/3.png"
+                    app.update_deck(value='3')
+            ImageButton:
+                source: "icons/numbers/4.png"
+                on_press: self.source = "icons/numbers/pressed/4.png"
+                on_release:
+                    self.source = "icons/numbers/4.png"
+                    app.update_deck(value='4')
+            ImageButton:
+                source: "icons/broadways/jack.png"
+                on_press: self.source = "icons/broadways/pressed/jack.png"
+                on_release:
+                    self.source = "icons/broadways/jack.png"
+                    app.update_deck(value='J')
+            ImageButton:
+                source: "icons/broadways/queen.png"
+                on_press: self.source = "icons/broadways/pressed/queen.png"
+                on_release:
+                    self.source = "icons/broadways/queen.png"
+                    app.update_deck(value='Q')
+            ImageButton:
+                source: "icons/suits/spade.png"
+                on_press: self.source = "icons/suits/pressed/spade.png"
+                on_release:
+                    self.source = "icons/suits/spade.png"
+                    app.update_deck(suit='s')
+            ImageButton:
+                source: "icons/suits/heart.png"
+                on_press: self.source = "icons/suits/pressed/heart.png"
+                on_release:
+                    self.source = "icons/suits/heart.png"
+                    app.update_deck(suit='h')
+            ImageButton:
+                source: "icons/numbers/5.png"
+                on_press: self.source = "icons/numbers/pressed/5.png"
+                on_release:
+                    self.source = "icons/numbers/5.png"
+                    app.update_deck(value='5')
+            ImageButton:
+                source: "icons/numbers/6.png"
+                on_press: self.source = "icons/numbers/pressed/6.png"
+                on_release:
+                    self.source = "icons/numbers/6.png"
+                    app.update_deck(value='6')
+            ImageButton:
+                source: "icons/numbers/7.png"
+                on_press: self.source = "icons/numbers/pressed/7.png"
+                on_release:
+                    self.source = "icons/numbers/7.png"
+                    app.update_deck(value='7')
+            ImageButton:
+                source: "icons/broadways/king.png"
+                on_press: self.source = "icons/broadways/pressed/king.png"
+                on_release:
+                    self.source = "icons/broadways/king.png"
+                    app.update_deck(value='K')
+            ImageButton:
+                source: "icons/broadways/ace.png"
+                on_press: self.source = "icons/broadways/pressed/ace.png"
+                on_release:
+                    self.source = "icons/broadways/ace.png"
+                    app.update_deck(value='A')
+            ImageButton:
+                source: "icons/suits/club.png"
+                on_press: self.source = "icons/suits/pressed/club.png"
+                on_release:
+                    self.source = "icons/suits/club.png"
+                    app.update_deck(suit='c')
+            ImageButton:
+                source: "icons/suits/diamond.png"
+                on_press: self.source = "icons/suits/pressed/diamond.png"
+                on_release:
+                    self.source = "icons/suits/diamond.png"
+                    app.update_deck(suit='d')
+            ImageButton:
+                source: "icons/numbers/8.png"
+                on_press: self.source = "icons/numbers/pressed/8.png"
+                on_release:
+                    self.source = "icons/numbers/8.png"
+                    app.update_deck(value='8')
+            ImageButton:
+                source: "icons/numbers/9.png"
+                on_press: self.source = "icons/numbers/pressed/9.png"
+                on_release:
+                    self.source = "icons/numbers/9.png"
+                    app.update_deck(value='9')
+            ImageButton:
+                source: "icons/numbers/10.png"
+                on_press: self.source = "icons/numbers/pressed/10.png"
+                on_release:
+                    self.source = "icons/numbers/10.png"
+                    app.update_deck(value='T')
+
+        GridLayout:
+            #CALCULATE Button
+            cols: 1
+            rows: 1
+            pos_hint: {"top": 0.25/3, "right": 1}
+            size_hint: 4/7, 0.27/3
+            ImageButton:
+                source: "icons/misc/calculate.png"
+                on_press:
+                    self.source = "icons/misc/calculate_pressed.png"
+                on_release:
+                    self.source = "icons/misc/calculate.png"
+                    app.calculate_button()
+
+
